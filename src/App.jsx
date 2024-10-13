@@ -6,6 +6,7 @@ import Footer from "./component/Footer";
 import AllMovies from "./AllMovies";
 import AllSeries from "./AllSeries";
 import ContactUs from "./ContactUse";
+import MovieDetails from "./MovieDetails";
 const App = () => {
 
   return (
@@ -16,8 +17,9 @@ const App = () => {
         <Route path="/Movies" element={<AllMovies/>}/>
         <Route path="/Series" element={<AllSeries/>}/>
         <Route path="/ContactUs" element={<ContactUs/>}/>
+        <Route path="/movie/:moveId/title/:moveTitle" element={<MovieDetails/>}/>
       </Routes>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
 
   )
