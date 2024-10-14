@@ -67,13 +67,14 @@ const DetailsMovie = createSlice({
         }),
         builder.addCase(getDetailsMovie.fulfilled,(state,{payload})=>{
             state.detailsMovie = payload;
-            console.log(payload)
+            state.waitMovie = true
         }),
         builder.addCase(getDetailsMovie.rejected,(state)=>{
             console.log("rej")
         });
         // get cast movie 
         builder.addCase(getCastMovie.pending,(state,action)=>{
+            state.waitMovie = true;
         });
         builder.addCase(getCastMovie.fulfilled,(state,{payload})=>{
             state.castMovie = payload;
