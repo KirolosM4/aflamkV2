@@ -33,21 +33,21 @@ const MovieDetails = () => {
                             <div className="lg:col-start-6 lg:col-span-6 text-white flex flex-col gap-2">
                                 <p className="text-4xl text-center lg:text-left p-2">{detailsMovie.title}</p>
                                 <p className="flex flex-col items-center lg:flex-row">{detailsMovie.release_date} ({detailsMovie.original_language.toUpperCase()}) <span className="px-2"><FaHandPointRight color="yellow" className="inline"/> {detailsMovie.genres[0].name} , {detailsMovie.genres[1].name} <FaHandPointLeft color="yellow" className="inline"/></span> {Math.floor(detailsMovie.runtime / 60)} h {detailsMovie.runtime % 60} min </p>
-                                <p className="leading-8"><span className="styleHeaderCyn">OverView : </span>{detailsMovie.overview}</p>
-                                <p className="styleHeaderCyn">Casting : </p>
-                                <div className="flex justify-around">
+                                <p className="leading-8 text-center text-sm px-3 lg:text-xl lg:px-0 lg:text-left"><span className="styleHeaderCyn">OverView : </span>{detailsMovie.overview}</p>
+                                <p className="styleHeaderCyn text-center lg:text-left">Casting : </p>
+                                <div className="flex flex-col items-center lg:justify-around lg:flex-row ">
                                     <p className="flex flex-col items-center"><span>{castMovie.cast[0].name}</span> <span className="text-yellow-500">{castMovie.cast[0].known_for_department}</span></p>
                                     <p>||</p>
                                     <p className="flex flex-col items-center"><span>{castMovie.cast[1].name}</span> <span className="text-yellow-500">{castMovie.cast[1].known_for_department}</span></p>
                                 </div>
-                                <div className="flex justify-around">
+                                <div className="flex flex-col items-center lg:flex-row lg:justify-around">
                                     <p className="flex flex-col items-center"><span>{castMovie.crew[0].name}</span> <span className="text-yellow-500">{castMovie.crew[0].known_for_department}</span></p>
                                     <p>||</p>
                                     <p className="flex flex-col items-center"><span>{castMovie.crew[4].name}</span> <span className="text-yellow-500">{castMovie.crew[4].known_for_department}</span></p>
                                     <p>||</p>
                                     <p className="flex flex-col items-center"><span>{castMovie.crew[2].name}</span> <span className="text-yellow-500">{castMovie.crew[2].known_for_department}</span></p>
                                 </div>
-                                <div className="flex justify-around">
+                                <div className="flex justify-around flex-wrap">
                                     <Link className="flex flex-col items-center"><AiFillFileAdd color="green" className="text-2xl" /><span>AddTo WatchList</span></Link>
                                     <Link className="flex flex-col items-center"><FaRegStar color="yellow" className="text-2xl"/><span>Rate Movie</span></Link>
                                     <Link className="flex flex-col items-center"><FaCirclePlay color="red" className="text-2xl"/><span className="text-yellow-500">Play Trailer</span></Link>
