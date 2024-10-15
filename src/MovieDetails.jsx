@@ -1,30 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams} from "react-router-dom";
-import { getCastMovie, getDetailsMovie } from "./redux/Slice/DetailsMovie";
+import { dontShowVideo, getCastMovie, getDetailsMovie, getVideoMovie } from "./redux/Slice/DetailsMovie";
 import WaitingDetails from "./WaitingDetails";
 import { FaHandPointRight,FaHandPointLeft,FaRegStar } from "react-icons/fa";
 import { AiFillFileAdd } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { FaCirclePlay } from "react-icons/fa6";
 import { Button } from "@material-tailwind/react";
+import { ImCancelCircle } from "react-icons/im";
 const MovieDetails = () => {
     const {moveId} = useParams();
     const {detailsMovie} = useSelector(state => state.myDetailsMovie);
     const {waitMovie} = useSelector(state => state.myDetailsMovie);
     const {castMovie} = useSelector(state => state.myDetailsMovie)
+    const {videoMovie} = useSelector(state => state.myDetailsMovie);
+    const {showVideo} = useSelector(state => state.myDetailsMovie)
+    const {newBackgroundVideo} = useSelector(state => state.myDetailsMovie)
     const dispatch = useDispatch();
     useEffect(()=>{
-        dispatch(getDetailsMovie(moveId))
-        dispatch(getCastMovie(moveId))
+        dispatch(getDetailsMovie(moveId));
+        dispatch(getCastMovie(moveId));
     },[])
     return(
         <div>
             {waitMovie ? 
                 <div className="h-screen bg-black flex items-center justify-center"><WaitingDetails/></div> 
                 :
-                <div className="h-fit bg-no-repeat bg-cover bg-center relative before:content-[''] before:bg-gradient-to-b from-black via-transparent to-black before:absolute before:w-full before:h-full" style={{backgroundImage:`url(https://image.tmdb.org/t/p/w600_and_h900_bestv2${detailsMovie.backdrop_path})`}}>
-                   <div className="relative h-full w-full">
+                <div className={`h-fit bg-no-repeat bg-cover bg-center relative before:content-[''] ${newBackgroundVideo ? "before:bg-black before:opacity-75 before:z-10" : "before:bg-gradient-to-b from-black via-transparent to-black"} before:absolute before:w-full before:h-full`} style={{backgroundImage:`url(https://image.tmdb.org/t/p/w600_and_h900_bestv2${detailsMovie.backdrop_path})`}}>
+                    {showVideo 
+                        &&
+                        <div className="absolute z-20 top-20 flex items-center flex-col gap-5 w-full" >
+                            <iframe className="w-[70%]" height="315" src={`https://www.youtube.com/embed/${videoMovie?.results[0].key}?si=QVPTHawPaII-sR60 z-20`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" ></iframe>
+                            <ImCancelCircle color="white" className="text-2xl cursor-pointer" onClick={()=>dispatch(dontShowVideo())}/>
+                        </div>
+                    }
+                    <div className="relative h-full w-full">
                         <p className="text-center styleHeaderCyn p-11">Movies - Details</p>
                         <div className="grid miniScreen:gird-cols-1 lg:grid-cols-12">
                             <div className="lg:col-start-2 lg:col-span-3 w-full flex justify-center">
@@ -48,9 +59,9 @@ const MovieDetails = () => {
                                     <p className="flex flex-col items-center"><span>{castMovie.crew[2].name}</span> <span className="text-yellow-500">{castMovie.crew[2].known_for_department}</span></p>
                                 </div>
                                 <div className="flex justify-around flex-wrap">
-                                    <Link className="flex flex-col items-center"><AiFillFileAdd color="green" className="text-2xl" /><span>AddTo WatchList</span></Link>
-                                    <Link className="flex flex-col items-center"><FaRegStar color="yellow" className="text-2xl"/><span>Rate Movie</span></Link>
-                                    <Link className="flex flex-col items-center"><FaCirclePlay color="red" className="text-2xl"/><span className="text-yellow-500">Play Trailer</span></Link>
+                                    <p className="flex flex-col items-center cursor-pointer"><AiFillFileAdd color="green" className="text-2xl" /><span>AddTo WatchList</span></p>
+                                    <p className="flex flex-col items-center cursor-pointer"><FaRegStar color="yellow" className="text-2xl"/><span>Rate Movie</span></p>
+                                    <p className="flex flex-col items-center cursor-pointer "><FaCirclePlay color="red" className="text-2xl" onClick={()=>dispatch(getVideoMovie(moveId))}/><span className="text-yellow-500">Play Trailer</span></p>
                                 </div>
                                 <div className="flex justify-center p-11">
                                     <Button variant="outlined" color="cyan">Back To Step</Button>
@@ -67,5 +78,4 @@ const MovieDetails = () => {
 export default MovieDetails;
 
 
-// poster_path
-// style={{backgroundImage:`url(https://image.tmdb.org/t/p/w600_and_h900_bestv2${detailsMovie.backdrop_path})`}}
+<iframe className="absolute left-1/2" width="560" height="315" src="https://www.youtube.com/embed/HAw90AwUL_4?si=QVPTHawPaII-sR60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" ></iframe>

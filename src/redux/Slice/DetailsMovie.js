@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
-
+// get Details Movie 
 export const getDetailsMovie = createAsyncThunk("getDetailsMovie",(detailsMovieId,thunkAPI)=>{
     const {rejectWithValue} = thunkAPI;
     try {
@@ -25,8 +25,8 @@ export const getDetailsMovie = createAsyncThunk("getDetailsMovie",(detailsMovieI
 
     }
 })
-
-export const getCastMovie = createAsyncThunk("getCastMovie",(detailsMovieId,thunkAPI)=>{
+// get Cast Movie 
+export const getCastMovie = createAsyncThunk("getCastMovie",async(detailsMovieId,thunkAPI)=>{
     const {rejectWithValue} = thunkAPI;
     try {
         const options = {
@@ -39,7 +39,7 @@ export const getCastMovie = createAsyncThunk("getCastMovie",(detailsMovieId,thun
             }
           };
           
-          const res = axios
+          const res = await axios
             .request(options)
             .then(function (response) {
               return response.data;
@@ -50,11 +50,42 @@ export const getCastMovie = createAsyncThunk("getCastMovie",(detailsMovieId,thun
 
     }
 })
+// get Video Movie 
+
+export const getVideoMovie = createAsyncThunk("getVideoMovie",async(detailsMovieId,thunkAPI)=>{
+    const {rejectWithValue} = thunkAPI;
+    try {
+
+        const options = {
+            method: 'GET',
+            url: `https://api.themoviedb.org/3/movie/${detailsMovieId}/videos`,
+            params: {language: 'en-US'},
+            headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MTViOWNkYTliYWQwOTg1MGNjNTk4ZjMzYzIxMmYyNyIsIm5iZiI6MTcyODkzNTkyMC45NjE0MzIsInN1YiI6IjY2ZmZmNjE1MTU5MmVmMWJhOTg1MWM4NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ov40vWkt_NE9RGkaltvODDOid-IK9mMbHs_IeTOHQTE'
+            }
+        };
+        
+        const res = await axios
+            .request(options)
+            .then(function (response) {
+            return response.data;
+            })
+
+            return res;
+
+            } catch(error){
+                return rejectWithValue(error)
+            }
+})
 
 const initialState = {
     detailsMovie : [],
     waitMovie:true,
     castMovie:[],
+    videoMovie:[],
+    newBackgroundVideo:false,
+    showVideo:false,
 }
 
 const DetailsMovie = createSlice({
@@ -82,8 +113,31 @@ const DetailsMovie = createSlice({
         });
         builder.addCase(getCastMovie.rejected,(state,action)=>{
 
+        });
+        // get Video Movie 
+        builder.addCase(getVideoMovie.pending,(state,action)=>{
+            state.waitMovie = true;
+            console.log("pen")
+        });
+        builder.addCase(getVideoMovie.fulfilled,(state,{payload})=>{
+            state.videoMovie = payload;
+            state.waitMovie = false;
+            state.showVideo = true;
+            state.newBackgroundVideo = true;
+            console.log("full")
+        });
+        builder.addCase(getVideoMovie.rejected,(state,action)=>{
+
         })
     },
+    reducers:{
+        dontShowVideo : (state) => {
+            state.waitMovie = false;
+            state.newBackgroundVideo = false;
+            state.showVideo = false;
+        }
+    }
 })
 
 export const myDetailsMovie = DetailsMovie.reducer;
+export const {dontShowVideo} = DetailsMovie.actions;
