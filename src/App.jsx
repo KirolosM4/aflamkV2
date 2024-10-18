@@ -8,6 +8,8 @@ import AllSeries from "./AllSeries";
 import ContactUs from "./ContactUse";
 import MovieDetails from "./MovieDetails";
 import SeriesDetails from "./SeriesDetails";
+import SearchMovies from "./SearchMovies";
+import SearchSeries from "./SearchSeries";
 const App = () => {
 
   return (
@@ -20,6 +22,8 @@ const App = () => {
         <Route path="/ContactUs" element={<ContactUs/>}/>
         <Route path="/movie/:moveId/title/:moveTitle" element={<MovieDetails/>}/>
         <Route path="/series/:seriesId/title/:seriesTitle" element={<SeriesDetails/>}/>
+        <Route path="/searchwith/:wordSearch/in/movie" element={<SearchMovies/>}/>
+        <Route path="/searchwith/:wordSearch/in/series" element={<SearchSeries/>}/>
       </Routes>
       <Footer/>
     </div>

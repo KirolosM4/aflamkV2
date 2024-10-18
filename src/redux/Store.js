@@ -7,6 +7,7 @@ import { myAllMovies } from "./Slice/allMoviesSlice";
 import { myAllSeries } from "./Slice/AllSeriesSlice";
 import { myDetailsMovie } from "./Slice/DetailsMovie";
 import { myDetailsSeries } from "./Slice/DetailsSeries";
+import { mySearch } from "./Slice/SearchSlice";
 const AllRed = combineReducers({
     myMovies,
     mySeries,
@@ -16,6 +17,7 @@ const AllRed = combineReducers({
     myAllSeries,
     myDetailsMovie,
     myDetailsSeries,
+    mySearch,
 })
 
 const Store = configureStore({

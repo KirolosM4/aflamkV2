@@ -14,7 +14,7 @@ const MoviesCarousal = () => {
         dispatch(getMovies())
     },[])
     return(
-        <div className='lg:mx-14 px-5'>
+        <div className='lg:mx-14 px-5 relative z-0'>
             <div className='text-center lg:text-left p-5'>
                 <p className='styleHeaderCyn'>Movies</p>
             </div>
@@ -26,11 +26,12 @@ const MoviesCarousal = () => {
             navigation={true}
             virtual
             loop={true}
+            className='z-0 relative'
         >
             {movies.map(({poster_path,id,title}, index) => (
-            <SwiperSlide key={index} virtualIndex={index}>
+            <SwiperSlide key={index} virtualIndex={index} className='relative z-0'>
                 <Link to={`/movie/${id}/title/${title}`}>
-                    <img src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${poster_path}`} alt="" />
+                    <img src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${poster_path}`} className='relative z-0' alt="" />
                 </Link>
             </SwiperSlide>
             ))}
