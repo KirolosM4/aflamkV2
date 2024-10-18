@@ -118,8 +118,7 @@ const HeaderNav = () => {
             <Collapse open={openNav}>
                 <NavList/>
                 <div className="flex flex-wrap gap-2 relative">
-                    <Input label="search"  className="bg-white" onChange={e=>{e.target.value ? setStatusInput(false) : setStatusInput(true); dispatch(getSearchSeries(e.target.value)); dispatch(getSearchMovies(e.target.value)) }}/>
-                    <Button variant="outlined" color="blue" className="hover:bg-blue-500 hover:text-white">Login</Button>
+                <Button variant="outlined" color="blue" className="hover:bg-blue-500 hover:text-white">Login</Button>
                         {
                             statusButton == "series" 
                             ?
@@ -127,8 +126,9 @@ const HeaderNav = () => {
                             :
                             <Button variant="outlined" color="blue" className="hover:bg-blue-500 hover:text-white w-full" onClick={()=>{setStatusButton("series")}}>Serach Movies</Button>
                         }
-                        <Button variant="outlined" color="green" className="hover:bg-green-500 hover:text-white" disabled={statusInput} onClick={()=>navigate(`searchwith/${wordSearch}/in/movie`)}>Search</Button>
-                    <Input label="search"  className="bg-white" onChange={e=>{e.target.value ? setStatusInput(false) : setStatusInput(true); dispatch(getSearchMovies(e.target.value));dispatch(getSearchSeries(e.target.value)); setWordSearch(e.target.value) }}/>
+                        <Button variant="outlined" color="green" className="hover:bg-green-500 hover:text-white w-full" disabled={statusInput} onClick={()=>{statusButton == "moveis" ?  navigate(`searchwith/${wordSearch}/in/movie`) :  navigate(`searchwith/${wordSearch}/in/series`)}}>Search</Button>
+                        <Input label="search"  className="bg-white" onChange={e=>{e.target.value ? setStatusInput(false) : setStatusInput(true); dispatch(getSearchMovies(e.target.value));dispatch(getSearchSeries(e.target.value)); setWordSearch(e.target.value) }}/>
+
                 </div>
             </Collapse>
             <Card className={`bg-[#212529] absolute top-full w-full md:w-[40%] right-0 h-[30vh] z-30 rounded-none ${searchSeries.length == 0 ? "hidden" : "overflow-x-auto"}`}>
