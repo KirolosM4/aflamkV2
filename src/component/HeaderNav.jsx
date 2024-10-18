@@ -97,7 +97,7 @@ const HeaderNav = () => {
                             :
                             <Button variant="outlined" color="blue" className="hover:bg-blue-500 hover:text-white w-full" onClick={()=>{setStatusButton("series")}}>Serach Movies</Button>
                         }
-                        <Button variant="outlined" color="green" className="hover:bg-green-500 hover:text-white" disabled={statusInput} onClick={()=>{statusButton == "moveis" ?  navigate(`searchwith/${wordSearch}/in/movie`) :  navigate(`searchwith/${wordSearch}/in/series`)}}>Search</Button>
+                        <Button variant="outlined" color="green" className="hover:bg-green-500 hover:text-white" disabled={statusInput} onClick={()=>{statusButton == "movies" ?  navigate(`searchwith/${wordSearch}/in/movie`) :  navigate(`searchwith/${wordSearch}/in/series`)}}>Search</Button>
                         <Input label="search"  className="bg-white" onChange={e=>{e.target.value ? setStatusInput(false) : setStatusInput(true); dispatch(getSearchMovies(e.target.value));dispatch(getSearchSeries(e.target.value)); setWordSearch(e.target.value) }}/>
 
                     </div>
@@ -137,7 +137,7 @@ const HeaderNav = () => {
                             statusButton == "series"
                             ?
                             searchSeries.map(({original_name,poster_path,id},index)=>(
-                                <Link to={`/movie/${id}/title/${original_name}`} key={index}>
+                                <Link to={`/series/${id}/title/${original_name}`} key={index}>
                                     <ListItem  className="flex justify-between border-y-2 rounded-none border-cyan-300 text-white hover:bg-[#777FD4] hover:text-white">
                                         {original_name}
                                         <Avatar variant="circular" alt="emma" src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${poster_path}`} />

@@ -45,7 +45,7 @@ const MovieDetails = () => {
                             </div>
                             <div className="lg:col-start-6 lg:col-span-6 text-white flex flex-col gap-2">
                                 <p className="text-4xl text-center lg:text-left p-2">{detailsMovie.title}</p>
-                                <p className="flex flex-col items-center lg:flex-row">{detailsMovie.release_date} ({detailsMovie.original_language.toUpperCase()}) <span className="px-2"><FaHandPointRight color="yellow" className="inline"/> {detailsMovie.genres[0] ? detailsMovie.genres[0].name : ""} , {detailsMovie.genres[1] ? detailsMovie.genres[1].name : ""} <FaHandPointLeft color="yellow" className="inline"/></span> {Math.floor(detailsMovie.runtime / 60)} h {detailsMovie.runtime % 60} min </p>
+                                <p className="flex flex-col items-center lg:flex-row">{detailsMovie.release_date} ({detailsMovie ? detailsMovie.original_language : ""}) <span className="px-2"><FaHandPointRight color="yellow" className="inline"/> {detailsMovie.genres[0] ? detailsMovie.genres[0].name : ""} , {detailsMovie.genres[1] ? detailsMovie.genres[1].name : ""} <FaHandPointLeft color="yellow" className="inline"/></span> {Math.floor(detailsMovie.runtime / 60)} h {detailsMovie.runtime % 60} min </p>
                                 <p className="leading-8 text-center text-sm px-3 lg:text-xl lg:px-0 lg:text-left"><span className="styleHeaderCyn">OverView : </span>{detailsMovie.overview}</p>
                                 <p className="styleHeaderCyn text-center lg:text-left">Casting : </p>
                                 <div className="flex flex-col items-center lg:justify-around lg:flex-row ">
