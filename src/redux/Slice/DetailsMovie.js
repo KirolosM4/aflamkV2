@@ -117,14 +117,12 @@ const DetailsMovie = createSlice({
         // get Video Movie 
         builder.addCase(getVideoMovie.pending,(state,action)=>{
             state.waitMovie = true;
-            console.log("pen")
         });
         builder.addCase(getVideoMovie.fulfilled,(state,{payload})=>{
             state.videoMovie = payload;
             state.waitMovie = false;
             state.showVideo = true;
             state.newBackgroundVideo = true;
-            console.log("full")
         });
         builder.addCase(getVideoMovie.rejected,(state,action)=>{
 

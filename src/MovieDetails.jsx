@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams} from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
 import { dontShowVideo, getCastMovie, getDetailsMovie, getVideoMovie } from "./redux/Slice/DetailsMovie";
 import WaitingDetails from "./WaitingDetails";
 import { FaHandPointRight,FaHandPointLeft,FaRegStar } from "react-icons/fa";
 import { AiFillFileAdd } from "react-icons/ai";
-import { Link } from "react-router-dom";
 import { FaCirclePlay } from "react-icons/fa6";
 import { Button } from "@material-tailwind/react";
 import { ImCancelCircle } from "react-icons/im";
@@ -17,11 +16,14 @@ const MovieDetails = () => {
     const {videoMovie} = useSelector(state => state.myDetailsMovie);
     const {showVideo} = useSelector(state => state.myDetailsMovie)
     const {newBackgroundVideo} = useSelector(state => state.myDetailsMovie)
+    const navigation = useNavigate()
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(getDetailsMovie(moveId));
         dispatch(getCastMovie(moveId));
     },[])
+
+
     return(
         <div>
             {waitMovie ? 
@@ -31,7 +33,7 @@ const MovieDetails = () => {
                     {showVideo 
                         &&
                         <div className="absolute z-20 top-20 flex items-center flex-col gap-5 w-full" >
-                            <iframe className="w-[70%]" height="315" src={`https://www.youtube.com/embed/${videoMovie?.results[0].key}?si=QVPTHawPaII-sR60 z-20`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" ></iframe>
+                            <iframe className="w-full lg:w-1/2" height="315" src={`https://www.youtube.com/embed/${videoMovie?.results[0].key}?si=QVPTHawPaII-sR60 z-20`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" ></iframe>
                             <ImCancelCircle color="white" className="text-2xl cursor-pointer" onClick={()=>dispatch(dontShowVideo())}/>
                         </div>
                     }
@@ -47,16 +49,16 @@ const MovieDetails = () => {
                                 <p className="leading-8 text-center text-sm px-3 lg:text-xl lg:px-0 lg:text-left"><span className="styleHeaderCyn">OverView : </span>{detailsMovie.overview}</p>
                                 <p className="styleHeaderCyn text-center lg:text-left">Casting : </p>
                                 <div className="flex flex-col items-center lg:justify-around lg:flex-row ">
-                                    <p className="flex flex-col items-center"><span>{castMovie.cast[0].name}</span> <span className="text-yellow-500">{castMovie.cast[0].known_for_department}</span></p>
+                                    <p className="flex flex-col items-center"><span>{castMovie.cast[0] ? castMovie.cast[0].name : ""}</span> <span className="text-yellow-500">{castMovie.cast[0] ? castMovie.cast[0].known_for_department : "Acting"}</span></p>
                                     <p>||</p>
-                                    <p className="flex flex-col items-center"><span>{castMovie.cast[1].name}</span> <span className="text-yellow-500">{castMovie.cast[1].known_for_department}</span></p>
+                                    <p className="flex flex-col items-center"><span>{castMovie.cast[1] ? castMovie.cast[1].name : ""}</span> <span className="text-yellow-500">{castMovie.cast[1] ? castMovie.cast[1].known_for_department : "Acting"}</span></p>
                                 </div>
                                 <div className="flex flex-col items-center lg:flex-row lg:justify-around">
-                                    <p className="flex flex-col items-center"><span>{castMovie.crew[0].name}</span> <span className="text-yellow-500">{castMovie.crew[0].known_for_department}</span></p>
+                                    <p className="flex flex-col items-center"><span>{castMovie.crew[0] ? castMovie.crew[0].name : ""}</span> <span className="text-yellow-500">{castMovie.crew[0] ? castMovie.crew[0].known_for_department : "Production"}</span></p>
                                     <p>||</p>
-                                    <p className="flex flex-col items-center"><span>{castMovie.crew[4].name}</span> <span className="text-yellow-500">{castMovie.crew[4].known_for_department}</span></p>
+                                    <p className="flex flex-col items-center"><span>{castMovie.crew[1] ? castMovie.crew[1].name : ""}</span> <span className="text-yellow-500">{castMovie.crew[1] ? castMovie.crew[1].known_for_department : "Direction"}</span></p>
                                     <p>||</p>
-                                    <p className="flex flex-col items-center"><span>{castMovie.crew[2].name}</span> <span className="text-yellow-500">{castMovie.crew[2].known_for_department}</span></p>
+                                    <p className="flex flex-col items-center"><span>{castMovie.crew[2] ? castMovie.crew[2].name : ""}</span> <span className="text-yellow-500">{castMovie.crew[2] ? castMovie.crew[2].known_for_department : "Production"}</span></p>
                                 </div>
                                 <div className="flex justify-around flex-wrap">
                                     <p className="flex flex-col items-center cursor-pointer"><AiFillFileAdd color="green" className="text-2xl" /><span>AddTo WatchList</span></p>
@@ -64,7 +66,7 @@ const MovieDetails = () => {
                                     <p className="flex flex-col items-center cursor-pointer "><FaCirclePlay color="red" className="text-2xl" onClick={()=>dispatch(getVideoMovie(moveId))}/><span className="text-yellow-500">Play Trailer</span></p>
                                 </div>
                                 <div className="flex justify-center p-11">
-                                    <Button variant="outlined" color="cyan">Back To Step</Button>
+                                    <Button variant="outlined" color="cyan" onClick={() => navigation(-1)}>Back To Step</Button>
                                 </div>
                             </div>
                         </div>
@@ -76,6 +78,3 @@ const MovieDetails = () => {
 }
 
 export default MovieDetails;
-
-
-<iframe className="absolute left-1/2" width="560" height="315" src="https://www.youtube.com/embed/HAw90AwUL_4?si=QVPTHawPaII-sR60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" ></iframe>

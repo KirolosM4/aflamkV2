@@ -33,7 +33,7 @@ const AllSeries = () => {
             <div className="md:px-14 flex flex-col items-center justify-center w-screen">
                 { waitingSeries ? <WaitingSeries/> :
                 <div className='container grid grid-cols-1 px-8 w-[80%] md:w-full md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center my-7 p-7 w-full gap-11'>
-                    {allSeries.map(({poster_path,title,vote_average}, index) => (
+                    {allSeries.map(({poster_path,name,vote_average,id}, index) => (
                         <Card className="w-full h-[32em] overflow-hidden  bg-[#212529]" key={index}>
                             <CardHeader
                             floated={false}
@@ -49,7 +49,7 @@ const AllSeries = () => {
                             </CardHeader>
                             <CardBody className='h-[35%] pt-5 py-5 flex flex-col pb-0 justify-center'>
                             <Typography variant="p" className='text-white text-center md:text-left lg:text-2xl'>
-                                TITLE : {title}
+                                TITLE : {name}
                             </Typography>
                             <Typography variant="lead" color="gray" className="mt-3 font-normal flex flex-col justify-between lg:flex-row  items-center ">
                                 <p className='text-cyan-400 text-xl md:text-xl'>Rate : {vote_average}</p>
@@ -58,7 +58,7 @@ const AllSeries = () => {
                             </CardBody>
                             <CardFooter className="flex justify-center mb-5  items-center h-[10%] w-full">
                             <Button variant='outlined' color='cyan'>
-                                <Link to="">DETAILS</Link>
+                                <Link to={`/series/${id}/title/${name}`}>DETAILS</Link>
                             </Button>
                             </CardFooter>
                         </Card>

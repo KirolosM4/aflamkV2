@@ -23,7 +23,7 @@ const TopMovies = () => {
                 <p className='styleHeaderCyn'>Top Movies</p>
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center my-7 p-7 w-full gap-11'>
-                {topMovies.map(({poster_path,title,vote_average}, index) => (
+                {topMovies.map(({poster_path,title,vote_average,id}, index) => (
                     <Card className="w-full h-[32em] overflow-hidden  bg-[#212529]" key={index}>
                         <CardHeader
                           floated={false}
@@ -48,7 +48,7 @@ const TopMovies = () => {
                         </CardBody>
                         <CardFooter className="flex justify-center mb-5  items-center h-[10%] w-full">
                           <Button variant='outlined' color='cyan'>
-                            <Link to="">DETAILS</Link>
+                            <Link to={`/movie/${id}/title/${title}`}>DETAILS</Link>
                           </Button>
                         </CardFooter>
                     </Card>
