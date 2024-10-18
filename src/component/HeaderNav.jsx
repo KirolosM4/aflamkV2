@@ -118,7 +118,7 @@ const HeaderNav = () => {
             <Collapse open={openNav}>
                 <NavList/>
                 <div className="flex flex-wrap gap-2 relative">
-                <Button variant="outlined" color="blue" className="hover:bg-blue-500 hover:text-white">Login</Button>
+                <Button variant="outlined" color="blue" className="hover:bg-blue-500 hover:text-white w-full">Login</Button>
                         {
                             statusButton == "series" 
                             ?
